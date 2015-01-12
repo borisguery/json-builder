@@ -203,4 +203,55 @@ JSON;
             json_decode($json)
         );
     }
+
+    public function testJsonObjectMergeWithAnArray()
+    {
+        $object = new JsonObject();
+        $object
+            ->add('Foo', 'Bar')
+            ->add('Bar', 'Baz');
+
+        $object->merge(["Far" => "Boo"]);
+
+        $json = $object->toJson();
+
+        $expectedJson = <<<JSON
+{"Foo": "Bar", "Bar": "Baz", "Far": "Boo"}
+JSON;
+
+        @json_decode($json);
+        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
+        $this->assertEquals(
+            json_decode($expectedJson, true),
+            json_decode($json, true)
+        );
+    }
+
+    public function testJsonObjectMergeWithAnotherJsonObject()
+    {
+        $object = new JsonObject();
+        $object
+            ->add('Foo', 'Bar')
+            ->add('Bar', 'Baz');
+
+        $object2 = new JsonObject();
+        $object2
+            ->add('Far', 'Boo')
+        ;
+
+        $object->merge($object2);
+
+        $json = $object->toJson();
+
+        $expectedJson = <<<JSON
+{"Foo": "Bar", "Bar": "Baz", "Far": "Boo"}
+JSON;
+
+        @json_decode($json);
+        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
+        $this->assertEquals(
+            json_decode($expectedJson, true),
+            json_decode($json, true)
+        );
+    }
 }
