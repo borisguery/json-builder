@@ -1,7 +1,8 @@
 {
     "name": "borisguery/json-builder",
     "autoload": {
-        "psr-0": { "": "src/" }
+        "psr-0": { "": "src/" },
+        "files": ["src/json_last_error_msg.php"]
     },
     "require-dev": {
         "phpunit/phpunit": "~3"
