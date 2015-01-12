@@ -25,8 +25,24 @@ class JsonArray implements JsonType
 
     public function merge($array)
     {
+        if (is_string($array)) {
+            $array = new JsonLiteral($array);
+        }
+        if ($array instanceof JsonLiteral) {
+            $array = json_decode($array->toJson(), true);
+        }
         if (is_array($array)) {
             $array = JsonValueTypeFactory::fromPhpType($array);
+            if (!$array instanceof JsonArray) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Unable to merge %s with %s, it must be an instance of %s",
+                        __CLASS__,
+                        get_class($array),
+                        __CLASS__
+                    )
+                );
+            }
         }
         if ($array instanceof JsonArray) {
             $this->array = array_merge_recursive($this->array, $array->array);

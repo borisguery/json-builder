@@ -25,8 +25,24 @@ class JsonObject implements JsonType
 
     public function merge($object)
     {
+        if (is_string($object)) {
+            $object = new JsonLiteral($object);
+        }
+        if ($object instanceof JsonLiteral) {
+            $object = json_decode($object->toJson(), true);
+        }
         if (is_array($object)) {
             $object = JsonValueTypeFactory::fromPhpType($object);
+            if (!$object instanceof JsonObject) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Unable to merge %s with %s, it must be an instance of %s",
+                        __CLASS__,
+                        get_class($object),
+                        __CLASS__
+                    )
+                );
+            }
         }
         if ($object instanceof JsonObject) {
             $this->object = array_merge_recursive($this->object, $object->object);
