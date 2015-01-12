@@ -66,6 +66,15 @@ class JsonTypeBuilder implements ParentInterface
         return $this->type('object', $optionalKey);
     }
 
+    /**
+     * @param string $optionalKey
+     * @return LiteralTypeDefinition
+     */
+    public function literal($optionalKey = null)
+    {
+        return $this->type('literal', $optionalKey);
+    }
+
     public function type($type, $optionalKey = null)
     {
         switch ($type) {
@@ -87,6 +96,9 @@ class JsonTypeBuilder implements ParentInterface
                 break;
             case 'string':
                 $type = new StringTypeDefinition($optionalKey);
+                break;
+            case 'literal':
+                $type = new LiteralTypeDefinition($optionalKey);
                 break;
         }
 
