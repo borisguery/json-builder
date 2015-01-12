@@ -325,4 +325,10 @@ JSON;
             json_decode($json, true)
         );
     }
+
+    public function testJsonLiteralThrowsInvalidArgumentExceptionWhenInvalidJsonIsProvided()
+    {
+        $this->setExpectedException('\InvalidArgumentException');
+        new JsonLiteral('["this": "is", "not", "a": {"valid json string"}]');
+    }
 }
