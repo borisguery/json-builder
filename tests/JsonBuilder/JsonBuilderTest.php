@@ -417,7 +417,90 @@ JSON;
         $this->assertFalse((bool)json_last_error(), json_last_error_msg());
         $this->assertEquals(
             json_decode($expectedJson, true),
-            json_decode($json)
+            json_decode($json, true)
+        );
+    }
+
+    public function testJsonBuilder()
+    {
+        $builder = new JsonBuilder();
+        $root = $builder->root('array');
+
+        $root
+            ->children()
+                ->number()
+                    ->value(3.14)
+                ->end()
+                ->boolean()
+                    ->true()
+                ->end()
+                ->boolean()
+                    ->false()
+                ->end()
+                ->string()
+                    ->value("Foobar")
+                ->end()
+                ->null()
+                ->end()
+                ->arr()
+                    ->children()
+                        ->number()
+                            ->value(3.14)
+                        ->end()
+                        ->boolean()
+                            ->true()
+                        ->end()
+                        ->boolean()
+                            ->false()
+                        ->end()
+                        ->string()
+                            ->value("Foobar")
+                        ->end()
+                        ->null()
+                        ->end()
+                        ->object()
+                            ->children()
+                                ->string('foo')
+                                    ->value('bar')
+                                ->end()
+                                ->number('bar')
+                                    ->value(123)
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ->end();
+
+        $json = $builder->build()->toJson();
+
+        $expectedJson = <<<JSON
+[
+    3.14,
+    true,
+    false,
+    "Foobar",
+    null,
+    [
+        3.14,
+        true,
+        false,
+        "Foobar",
+        null,
+        {
+            "foo": "bar",
+            "bar": 123
+        }
+    ]
+]
+JSON;
+
+        @json_decode($json);
+        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
+        $this->assertEquals(
+            json_decode($expectedJson, true),
+            json_decode($json, true)
         );
     }
 }
