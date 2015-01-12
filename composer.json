@@ -1,0 +1,17 @@
+{
+    "name": "borisguery/json-builder",
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Boris Guéry",
+            "email": "guery.b@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
