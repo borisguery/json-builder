@@ -85,6 +85,68 @@ JSON;
 {"user1": [1, "Boris", "Guéry"], "user2": [2, "John", "Doe"], "user3": [3, "Jane", "Doe"]}
 JSON;
 
+        @json_decode($json);
+        $this->assertFalse((bool) json_last_error(), json_last_error_msg());
+        $this->assertEquals(
+            json_decode($expectedJson, true),
+            json_decode($json, true)
+        );
+    }
+
+    public function testBuildAComplexObjectWithMixedTypes()
+    {
+        $object = new JsonObject();
+        $object
+            ->add(
+                "user",
+                (new JsonObject())
+                    ->add("id", 1)
+                    ->add("nickname", "Boris")
+                    ->add(
+                        "roles",
+                        (new JsonArray())
+                            ->add("member")
+                            ->add("admin")
+                    )
+            )
+            ->add("groups",
+                (new JsonObject())
+                    ->add(
+                        23,
+                        (new JsonObject())
+                            ->add("name", "Operators")
+                    )
+            )
+            ->add("reference", "1234")
+            ->add(
+                "friends",
+                (new JsonArray())
+                    ->add(1)
+                    ->add("2")
+                    ->add(3)
+            )
+        ;
+
+        $json = $object->toJson();
+
+        $expectedJson = <<<JSON
+{
+    "user": {
+        "id": 1,
+        "nickname": "Boris",
+        "roles": ["member", "admin"]
+    },
+    "groups": {
+        "23": { "name": "Operators" }
+    },
+    "reference": "1234",
+    "friends": [1, 2, 3]
+}
+JSON;
+
+        @json_decode($json);
+        $this->assertFalse((bool) json_last_error(), json_last_error_msg());
+
         $this->assertEquals(
             json_decode($expectedJson, true),
             json_decode($json, true)
