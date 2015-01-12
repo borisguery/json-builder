@@ -308,4 +308,21 @@ JSON;
             json_decode($json, true)
         );
     }
+
+    public function testJsonLiteral()
+    {
+        $literal = new JsonLiteral('{"name": "Boris Guéry", "data": [1, 2, null, 4]}');
+        $json = $literal->toJson();
+
+        $expectedJson = <<<JSON
+{"name": "Boris Guéry", "data": [1, 2, null, 4]}
+JSON;
+
+        @json_decode($json);
+        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
+        $this->assertEquals(
+            json_decode($expectedJson, true),
+            json_decode($json, true)
+        );
+    }
 }
