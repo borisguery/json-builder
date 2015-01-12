@@ -254,4 +254,58 @@ JSON;
             json_decode($json, true)
         );
     }
+
+    public function testJsonArrayMergeWithAnArray()
+    {
+        $array = new JsonArray();
+        $array
+            ->add("Boris")
+            ->add("John")
+        ;
+
+        $array->merge(["Jane", "Jack"]);
+
+        $json = $array->toJson();
+
+        $expectedJson = <<<JSON
+["Boris", "John", "Jane", "Jack"]
+JSON;
+
+        @json_decode($json);
+        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
+        $this->assertEquals(
+            json_decode($expectedJson, true),
+            json_decode($json, true)
+        );
+    }
+
+    public function testJsonArrayMergeWithAnotherJsonArray()
+    {
+        $array = new JsonArray();
+        $array
+            ->add("Boris")
+            ->add("John")
+        ;
+
+        $array2 = new JsonArray();
+        $array2
+            ->add("Jane")
+            ->add("Jack")
+        ;
+
+        $array->merge($array2);
+
+        $json = $array->toJson();
+
+        $expectedJson = <<<JSON
+["Boris", "John", "Jane", "Jack"]
+JSON;
+
+        @json_decode($json);
+        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
+        $this->assertEquals(
+            json_decode($expectedJson, true),
+            json_decode($json, true)
+        );
+    }
 }
