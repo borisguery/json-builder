@@ -36,7 +36,13 @@ class JsonValueTypeFactory
         }
 
         if (is_null($phpValue)) {
-            return (new JsonNull());
+
+            return new JsonNull();
+        }
+
+        if (is_bool($phpValue)) {
+
+            return new JsonBoolean($phpValue);
         }
 
         throw new \InvalidArgumentException('Unknown value type');

@@ -403,4 +403,21 @@ JSON;
 
         $object->merge('["Bli", "Blou", "Bla"]');
     }
+
+    public function testJsonBoolean()
+    {
+        $boolean = new JsonString(false);
+        $json = $boolean->toJson();
+
+        $expectedJson = <<<JSON
+false
+JSON;
+
+        @json_decode($json);
+        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
+        $this->assertEquals(
+            json_decode($expectedJson, true),
+            json_decode($json)
+        );
+    }
 }
