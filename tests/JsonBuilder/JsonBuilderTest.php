@@ -331,4 +331,76 @@ JSON;
         $this->setExpectedException('\InvalidArgumentException');
         new JsonLiteral('["this": "is", "not", "a": {"valid json string"}]');
     }
+
+    public function testMergeJsonObjectWithAJsonLiteral()
+    {
+        $object = new JsonObject();
+        $object
+            ->add('Foo', 'Bar')
+            ->add('Bar', 'Baz');
+
+        $object->merge('{"name": "Boris Guéry", "data": [1, 2, null, 4]}');
+
+        $json = $object->toJson();
+
+        $expectedJson = <<<JSON
+{"Foo": "Bar", "Bar": "Baz", "name": "Boris Guéry", "data": [1, 2, null, 4]}
+JSON;
+
+        @json_decode($json);
+        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
+        $this->assertEquals(
+            json_decode($expectedJson, true),
+            json_decode($json, true)
+        );
+    }
+
+    public function testMergeJsonArrayWithAJsonLiteral()
+    {
+        $object = new JsonArray();
+        $object
+            ->add('Foo')
+            ->add('Bar')
+        ;
+
+        $object->merge('["Baz", "Far"]');
+
+        $json = $object->toJson();
+
+        $expectedJson = <<<JSON
+["Foo", "Bar", "Baz", "Far"]
+JSON;
+
+        @json_decode($json);
+        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
+        $this->assertEquals(
+            json_decode($expectedJson, true),
+            json_decode($json, true)
+        );
+    }
+
+    public function testMergeJsonArrayWithAJsonLiteralContainingAnObject()
+    {
+        $this->setExpectedException('\InvalidArgumentException');
+        $object = new JsonArray();
+        $object
+            ->add('Foo')
+            ->add('Bar')
+        ;
+
+        $object->merge('{"Foo": "Bar"}');
+    }
+
+
+    public function testMergeJsonObjectWithAJsonLiteralContainingAnArray()
+    {
+        $this->setExpectedException('\InvalidArgumentException');
+        $object = new JsonObject();
+        $object
+            ->add('Foo', 'Bar')
+            ->add('Bar', 'Foo')
+        ;
+
+        $object->merge('["Bli", "Blou", "Bla"]');
+    }
 }
