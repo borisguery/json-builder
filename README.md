@@ -2,6 +2,8 @@
 
 Allow to build a JSON string programmatically
 
+[![Build Status](https://travis-ci.org/borisguery/json-builder.svg?branch=master)](https://travis-ci.org/borisguery/json-builder)
+
 Table of contents
 -----------------
 
