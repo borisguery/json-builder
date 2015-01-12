@@ -5,6 +5,8 @@
 
 namespace JsonBuilder;
 
+use JsonBuilder\Builder\JsonBuilder;
+
 class JsonBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBuildASimpleJsonObject()
@@ -466,6 +468,9 @@ JSON;
                                 ->number('bar')
                                     ->value(123)
                                 ->end()
+                                ->literal('literal')
+                                    ->value('[1, 2, 3]')
+                                ->end()
                             ->end()
                         ->end()
                     ->end()
@@ -490,14 +495,15 @@ JSON;
         null,
         {
             "foo": "bar",
-            "bar": 123
+            "bar": 123,
+            "literal": [1, 2, 3]
         }
     ]
 ]
 JSON;
 
         @json_decode($json);
-        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
+        $this->assertFalse((bool) json_last_error(), json_last_error_msg());
         $this->assertEquals(
             json_decode($expectedJson, true),
             json_decode($json, true)
