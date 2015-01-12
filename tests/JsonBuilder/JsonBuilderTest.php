@@ -39,6 +39,31 @@ JSON;
 
     public function testBuildAnArrayOfObject()
     {
+        $array = new JsonArray();
+        $object1 = new JsonObject();
+        $object1
+            ->add('firstname', 'Boris')
+            ->add('lastname', 'Guéry')
+        ;
+        $object2 = new JsonObject();
+        $object2
+            ->add('firstname', 'John')
+            ->add('lastname', 'Doe')
+        ;
+
+        $json = $array
+            ->add($object1)
+            ->add($object2)
+        ->toJson();
+
+        $expectedJson = <<<JSON
+[{"firstname": "Boris", "lastname": "Guéry"}, {"firstname": "John", "lastname": "Doe"}]
+JSON;
+
+        $this->assertEquals(
+            json_decode($expectedJson, true),
+            json_decode($json, true)
+        );
     }
 
     public function testBuildAnObjectOfArray()
