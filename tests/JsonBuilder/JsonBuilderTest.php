@@ -221,12 +221,7 @@ JSON;
 {"Foo": "Bar", "Bar": "Baz", "Far": "Boo"}
 JSON;
 
-        @json_decode($json);
-        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
-        $this->assertEquals(
-            json_decode($expectedJson, true),
-            json_decode($json, true)
-        );
+        $this->assertJsonAreEquals($expectedJson, $json);
     }
 
     public function testJsonObjectMergeWithAnotherJsonObject()
@@ -249,12 +244,7 @@ JSON;
 {"Foo": "Bar", "Bar": "Baz", "Far": "Boo"}
 JSON;
 
-        @json_decode($json);
-        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
-        $this->assertEquals(
-            json_decode($expectedJson, true),
-            json_decode($json, true)
-        );
+        $this->assertJsonAreEquals($expectedJson, $json);
     }
 
     public function testJsonArrayMergeWithAnArray()
@@ -273,12 +263,7 @@ JSON;
 ["Boris", "John", "Jane", "Jack"]
 JSON;
 
-        @json_decode($json);
-        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
-        $this->assertEquals(
-            json_decode($expectedJson, true),
-            json_decode($json, true)
-        );
+        $this->assertJsonAreEquals($expectedJson, $json);
     }
 
     public function testJsonArrayMergeWithAnotherJsonArray()
@@ -303,12 +288,7 @@ JSON;
 ["Boris", "John", "Jane", "Jack"]
 JSON;
 
-        @json_decode($json);
-        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
-        $this->assertEquals(
-            json_decode($expectedJson, true),
-            json_decode($json, true)
-        );
+        $this->assertJsonAreEquals($expectedJson, $json);
     }
 
     public function testJsonLiteral()
@@ -320,12 +300,7 @@ JSON;
 {"name": "Boris Guéry", "data": [1, 2, null, 4]}
 JSON;
 
-        @json_decode($json);
-        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
-        $this->assertEquals(
-            json_decode($expectedJson, true),
-            json_decode($json, true)
-        );
+        $this->assertJsonAreEquals($expectedJson, $json);
     }
 
     public function testJsonLiteralThrowsInvalidArgumentExceptionWhenInvalidJsonIsProvided()
@@ -349,12 +324,7 @@ JSON;
 {"Foo": "Bar", "Bar": "Baz", "name": "Boris Guéry", "data": [1, 2, null, 4]}
 JSON;
 
-        @json_decode($json);
-        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
-        $this->assertEquals(
-            json_decode($expectedJson, true),
-            json_decode($json, true)
-        );
+        $this->assertJsonAreEquals($expectedJson, $json);
     }
 
     public function testMergeJsonArrayWithAJsonLiteral()
@@ -373,12 +343,7 @@ JSON;
 ["Foo", "Bar", "Baz", "Far"]
 JSON;
 
-        @json_decode($json);
-        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
-        $this->assertEquals(
-            json_decode($expectedJson, true),
-            json_decode($json, true)
-        );
+        $this->assertJsonAreEquals($expectedJson, $json);
     }
 
     public function testMergeJsonArrayWithAJsonLiteralContainingAnObject()
@@ -415,12 +380,7 @@ JSON;
 false
 JSON;
 
-        @json_decode($json);
-        $this->assertFalse((bool)json_last_error(), json_last_error_msg());
-        $this->assertEquals(
-            json_decode($expectedJson, true),
-            json_decode($json, true)
-        );
+        $this->assertJsonAreEquals($expectedJson, $json);
     }
 
     public function testJsonBuilder()
@@ -502,11 +462,16 @@ JSON;
 ]
 JSON;
 
-        @json_decode($json);
+        $this->assertJsonAreEquals($expectedJson, $json);
+    }
+
+    private function assertJsonAreEquals($expected, $actual)
+    {
+        @json_decode($actual);
         $this->assertFalse((bool) json_last_error(), json_last_error_msg());
         $this->assertEquals(
-            json_decode($expectedJson, true),
-            json_decode($json, true)
+            json_decode($expected, true),
+            json_decode($actual, true)
         );
     }
 }
