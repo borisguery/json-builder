@@ -68,6 +68,21 @@ JSON;
 
     public function testBuildAnObjectOfArray()
     {
+        $object = new JsonObject();
+        $object->add('user1', (new JsonArray())->add(1)->add("Boris")->add("Guéry"));
+        $object->add('user2', (new JsonArray())->add(2)->add("John")->add("Doe"));
+        $object->add('user3', (new JsonArray())->add(3)->add("Jane")->add("Doe"));
+
+        $json = $object->toJson();
+
+        $expectedJson = <<<JSON
+{"user1": [1, "Boris", "Guéry"], "user2": [2, "John", "Doe"], "user3": [3, "Jane", "Doe"]}
+JSON;
+
+        $this->assertEquals(
+            json_decode($expectedJson, true),
+            json_decode($json, true)
+        );
     }
 
     public function testBuildASimpleString()
