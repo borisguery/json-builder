@@ -16,6 +16,8 @@ class JsonBuilderTest extends \PHPUnit_Framework_TestCase
 {"Foo": "Bar", "Bar": "Baz"}
 JSON;
 
+        @json_decode($json);
+        $this->assertFalse((bool) json_last_error(), json_last_error_msg());
         $this->assertEquals(
             json_decode($expectedJson, true),
             json_decode($json, true)
@@ -31,6 +33,8 @@ JSON;
 ["Foo", "Bar"]
 JSON;
 
+        @json_decode($json);
+        $this->assertFalse((bool) json_last_error(), json_last_error_msg());
         $this->assertEquals(
             json_decode($expectedJson, true),
             json_decode($json, true)
@@ -60,6 +64,8 @@ JSON;
 [{"firstname": "Boris", "lastname": "Guéry"}, {"firstname": "John", "lastname": "Doe"}]
 JSON;
 
+        @json_decode($json);
+        $this->assertFalse((bool) json_last_error(), json_last_error_msg());
         $this->assertEquals(
             json_decode($expectedJson, true),
             json_decode($json, true)
@@ -94,6 +100,8 @@ JSON;
 "Foobar"
 JSON;
 
+        @json_decode($json);
+        $this->assertFalse((bool) json_last_error(), json_last_error_msg());
         $this->assertEquals(
             json_decode($expectedJson, true),
             json_decode($json)
@@ -109,6 +117,8 @@ JSON;
 3.14
 JSON;
 
+        @json_decode($json);
+        $this->assertFalse((bool) json_last_error(), json_last_error_msg());
         $this->assertEquals(
             json_decode($expectedJson, true),
             json_decode($json)
@@ -124,6 +134,8 @@ JSON;
 null
 JSON;
 
+        @json_decode($json);
+        $this->assertFalse((bool) json_last_error(), json_last_error_msg());
         $this->assertEquals(
             json_decode($expectedJson, true),
             json_decode($json)
