@@ -373,7 +373,7 @@ JSON;
 
     public function testJsonBoolean()
     {
-        $boolean = new JsonString(false);
+        $boolean = new JsonBoolean(false);
         $json = $boolean->toJson();
 
         $expectedJson = <<<JSON
@@ -469,7 +469,7 @@ JSON;
     {
         @json_decode($actual);
         $this->assertFalse((bool) json_last_error(), json_last_error_msg());
-        $this->assertEquals(
+        $this->assertSame(
             json_decode($expected, true),
             json_decode($actual, true)
         );

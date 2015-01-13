@@ -11,7 +11,7 @@ class JsonString implements JsonType
 
     public function __construct($string)
     {
-        $this->value = $string;
+        $this->value = (string) $string;
     }
 
     public function toJson()
