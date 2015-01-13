@@ -3,6 +3,7 @@
 Allow to build a JSON string programmatically
 
 [![Build Status](https://travis-ci.org/borisguery/json-builder.svg?branch=master)](https://travis-ci.org/borisguery/json-builder)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/borisguery/json-builder/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/borisguery/json-builder/?branch=master)
 
 Table of contents
 -----------------
