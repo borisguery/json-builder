@@ -18,12 +18,7 @@ class JsonBuilderTest extends \PHPUnit_Framework_TestCase
 {"Foo": "Bar", "Bar": "Baz"}
 JSON;
 
-        @json_decode($json);
-        $this->assertFalse((bool) json_last_error(), json_last_error_msg());
-        $this->assertEquals(
-            json_decode($expectedJson, true),
-            json_decode($json, true)
-        );
+        $this->assertJsonAreEquals($expectedJson, $json);
     }
 
     public function testBuildASimpleJsonArray()
@@ -35,12 +30,7 @@ JSON;
 ["Foo", "Bar"]
 JSON;
 
-        @json_decode($json);
-        $this->assertFalse((bool) json_last_error(), json_last_error_msg());
-        $this->assertEquals(
-            json_decode($expectedJson, true),
-            json_decode($json, true)
-        );
+        $this->assertJsonAreEquals($expectedJson, $json);
     }
 
     public function testBuildAnArrayOfObject()
@@ -66,12 +56,7 @@ JSON;
 [{"firstname": "Boris", "lastname": "Guéry"}, {"firstname": "John", "lastname": "Doe"}]
 JSON;
 
-        @json_decode($json);
-        $this->assertFalse((bool) json_last_error(), json_last_error_msg());
-        $this->assertEquals(
-            json_decode($expectedJson, true),
-            json_decode($json, true)
-        );
+        $this->assertJsonAreEquals($expectedJson, $json);
     }
 
     public function testBuildAnObjectOfArray()
@@ -87,12 +72,7 @@ JSON;
 {"user1": [1, "Boris", "Guéry"], "user2": [2, "John", "Doe"], "user3": [3, "Jane", "Doe"]}
 JSON;
 
-        @json_decode($json);
-        $this->assertFalse((bool) json_last_error(), json_last_error_msg());
-        $this->assertEquals(
-            json_decode($expectedJson, true),
-            json_decode($json, true)
-        );
+        $this->assertJsonAreEquals($expectedJson, $json);
     }
 
     public function testBuildAComplexObjectWithMixedTypes()
@@ -142,17 +122,11 @@ JSON;
         "23": { "name": "Operators" }
     },
     "reference": "1234",
-    "friends": [1, 2, 3]
+    "friends": [1, "2", 3]
 }
 JSON;
 
-        @json_decode($json);
-        $this->assertFalse((bool) json_last_error(), json_last_error_msg());
-
-        $this->assertEquals(
-            json_decode($expectedJson, true),
-            json_decode($json, true)
-        );
+        $this->assertJsonAreEquals($expectedJson, $json);
     }
 
     public function testBuildASimpleString()
@@ -164,12 +138,7 @@ JSON;
 "Foobar"
 JSON;
 
-        @json_decode($json);
-        $this->assertFalse((bool) json_last_error(), json_last_error_msg());
-        $this->assertEquals(
-            json_decode($expectedJson, true),
-            json_decode($json)
-        );
+        $this->assertJsonAreEquals($expectedJson, $json);
     }
 
     public function testBuildASimpleNumber()
@@ -181,12 +150,7 @@ JSON;
 3.14
 JSON;
 
-        @json_decode($json);
-        $this->assertFalse((bool) json_last_error(), json_last_error_msg());
-        $this->assertEquals(
-            json_decode($expectedJson, true),
-            json_decode($json)
-        );
+        $this->assertJsonAreEquals($expectedJson, $json);
     }
 
     public function testBuildNullValue()
@@ -198,12 +162,7 @@ JSON;
 null
 JSON;
 
-        @json_decode($json);
-        $this->assertFalse((bool) json_last_error(), json_last_error_msg());
-        $this->assertEquals(
-            json_decode($expectedJson, true),
-            json_decode($json)
-        );
+        $this->assertJsonAreEquals($expectedJson, $json);
     }
 
     public function testJsonObjectMergeWithAnArray()
