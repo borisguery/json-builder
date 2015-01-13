@@ -18,7 +18,7 @@ class JsonBuilderTest extends \PHPUnit_Framework_TestCase
 {"Foo": "Bar", "Bar": "Baz"}
 JSON;
 
-        $this->assertJsonAreEquals($expectedJson, $json);
+        $this->assertJsonAreIdentical($expectedJson, $json);
     }
 
     public function testBuildASimpleJsonArray()
@@ -30,7 +30,7 @@ JSON;
 ["Foo", "Bar"]
 JSON;
 
-        $this->assertJsonAreEquals($expectedJson, $json);
+        $this->assertJsonAreIdentical($expectedJson, $json);
     }
 
     public function testBuildAnArrayOfObject()
@@ -56,7 +56,7 @@ JSON;
 [{"firstname": "Boris", "lastname": "Guéry"}, {"firstname": "John", "lastname": "Doe"}]
 JSON;
 
-        $this->assertJsonAreEquals($expectedJson, $json);
+        $this->assertJsonAreIdentical($expectedJson, $json);
     }
 
     public function testBuildAnObjectOfArray()
@@ -72,7 +72,7 @@ JSON;
 {"user1": [1, "Boris", "Guéry"], "user2": [2, "John", "Doe"], "user3": [3, "Jane", "Doe"]}
 JSON;
 
-        $this->assertJsonAreEquals($expectedJson, $json);
+        $this->assertJsonAreIdentical($expectedJson, $json);
     }
 
     public function testBuildAComplexObjectWithMixedTypes()
@@ -126,7 +126,7 @@ JSON;
 }
 JSON;
 
-        $this->assertJsonAreEquals($expectedJson, $json);
+        $this->assertJsonAreIdentical($expectedJson, $json);
     }
 
     public function testBuildASimpleString()
@@ -138,7 +138,7 @@ JSON;
 "Foobar"
 JSON;
 
-        $this->assertJsonAreEquals($expectedJson, $json);
+        $this->assertJsonAreIdentical($expectedJson, $json);
     }
 
     public function testBuildASimpleNumber()
@@ -150,7 +150,7 @@ JSON;
 3.14
 JSON;
 
-        $this->assertJsonAreEquals($expectedJson, $json);
+        $this->assertJsonAreIdentical($expectedJson, $json);
     }
 
     public function testBuildNullValue()
@@ -162,7 +162,7 @@ JSON;
 null
 JSON;
 
-        $this->assertJsonAreEquals($expectedJson, $json);
+        $this->assertJsonAreIdentical($expectedJson, $json);
     }
 
     public function testJsonObjectMergeWithAnArray()
@@ -180,7 +180,7 @@ JSON;
 {"Foo": "Bar", "Bar": "Baz", "Far": "Boo"}
 JSON;
 
-        $this->assertJsonAreEquals($expectedJson, $json);
+        $this->assertJsonAreIdentical($expectedJson, $json);
     }
 
     public function testJsonObjectMergeWithAnotherJsonObject()
@@ -203,7 +203,7 @@ JSON;
 {"Foo": "Bar", "Bar": "Baz", "Far": "Boo"}
 JSON;
 
-        $this->assertJsonAreEquals($expectedJson, $json);
+        $this->assertJsonAreIdentical($expectedJson, $json);
     }
 
     public function testJsonArrayMergeWithAnArray()
@@ -222,7 +222,7 @@ JSON;
 ["Boris", "John", "Jane", "Jack"]
 JSON;
 
-        $this->assertJsonAreEquals($expectedJson, $json);
+        $this->assertJsonAreIdentical($expectedJson, $json);
     }
 
     public function testJsonArrayMergeWithAnotherJsonArray()
@@ -247,7 +247,7 @@ JSON;
 ["Boris", "John", "Jane", "Jack"]
 JSON;
 
-        $this->assertJsonAreEquals($expectedJson, $json);
+        $this->assertJsonAreIdentical($expectedJson, $json);
     }
 
     public function testJsonLiteral()
@@ -259,7 +259,7 @@ JSON;
 {"name": "Boris Guéry", "data": [1, 2, null, 4]}
 JSON;
 
-        $this->assertJsonAreEquals($expectedJson, $json);
+        $this->assertJsonAreIdentical($expectedJson, $json);
     }
 
     public function testJsonLiteralThrowsInvalidArgumentExceptionWhenInvalidJsonIsProvided()
@@ -283,7 +283,7 @@ JSON;
 {"Foo": "Bar", "Bar": "Baz", "name": "Boris Guéry", "data": [1, 2, null, 4]}
 JSON;
 
-        $this->assertJsonAreEquals($expectedJson, $json);
+        $this->assertJsonAreIdentical($expectedJson, $json);
     }
 
     public function testMergeJsonArrayWithAJsonLiteral()
@@ -302,7 +302,7 @@ JSON;
 ["Foo", "Bar", "Baz", "Far"]
 JSON;
 
-        $this->assertJsonAreEquals($expectedJson, $json);
+        $this->assertJsonAreIdentical($expectedJson, $json);
     }
 
     public function testMergeJsonArrayWithAJsonLiteralContainingAnObject()
@@ -339,7 +339,7 @@ JSON;
 false
 JSON;
 
-        $this->assertJsonAreEquals($expectedJson, $json);
+        $this->assertJsonAreIdentical($expectedJson, $json);
     }
 
     public function testJsonBuilder()
@@ -421,10 +421,10 @@ JSON;
 ]
 JSON;
 
-        $this->assertJsonAreEquals($expectedJson, $json);
+        $this->assertJsonAreIdentical($expectedJson, $json);
     }
 
-    private function assertJsonAreEquals($expected, $actual)
+    private function assertJsonAreIdentical($expected, $actual)
     {
         @json_decode($actual);
         $this->assertFalse((bool) json_last_error(), json_last_error_msg());
