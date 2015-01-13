@@ -99,12 +99,12 @@ JSON;
                             ->add("name", "Operators")
                     )
             )
-            ->add("reference", "1234")
+            ->add("reference", new JsonString("1234"))
             ->add(
                 "friends",
                 (new JsonArray())
                     ->add(1)
-                    ->add("2")
+                    ->add(new JsonString("2"))
                     ->add(3)
             )
         ;
