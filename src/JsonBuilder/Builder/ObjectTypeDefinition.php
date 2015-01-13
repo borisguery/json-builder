@@ -12,8 +12,8 @@ class ObjectTypeDefinition extends ComplexTypeDefinition
     public function createType()
     {
         $type = new JsonObject();
-        foreach ($this->children as $key => $value) {
-            $type->add($key, $value->createType());
+        foreach ($this->children as $value) {
+            $type->add($value->key, $value->createType());
         }
 
         return $type;
@@ -22,7 +22,7 @@ class ObjectTypeDefinition extends ComplexTypeDefinition
     public function append(TypeDefinition $definition)
     {
         $definition->setParent($this);
-        $this->children[$definition->key] = $definition;
+        $this->children[] = $definition;
 
         return $this;
     }

@@ -13,92 +13,85 @@ class JsonTypeBuilder implements ParentInterface
     protected $parent;
 
     /**
-     * @param string $optionalKey
      * @return NumberTypeDefinition
      */
-    public function number($optionalKey = null)
+    public function number()
     {
-        return $this->type('number', $optionalKey);
+        return $this->type('number');
     }
 
     /**
-     * @param string $optionalKey
      * @return StringTypeDefinition
      */
-    public function string($optionalKey = null)
+    public function string()
     {
-        return $this->type('string', $optionalKey);
+        return $this->type('string');
     }
 
     /**
-     * @param string $optionalKey
      * @return BooleanTypeDefinition
      */
-    public function boolean($optionalKey = null)
+    public function boolean()
     {
-        return $this->type('boolean', $optionalKey);
+        return $this->type('boolean');
     }
 
     /**
-     * @param string $optionalKey
      * @return NullTypeDefinition
      */
-    public function null($optionalKey = null)
+    public function null()
     {
-        return $this->type('null', $optionalKey);
+        return $this->type('null');
     }
 
     /**
-     * @param string $optionalKey
      * @return ArrayTypeDefinition
      */
-    public function arr($optionalKey = null)
+    public function arr()
     {
-        return $this->type('array', $optionalKey);
+        return $this->type('array');
     }
 
     /**
-     * @param string $optionalKey
      * @return ObjectTypeDefinition
      */
-    public function object($optionalKey = null)
+    public function object()
     {
-        return $this->type('object', $optionalKey);
+        return $this->type('object');
     }
 
     /**
-     * @param string $optionalKey
      * @return LiteralTypeDefinition
      */
-    public function literal($optionalKey = null)
+    public function literal()
     {
-        return $this->type('literal', $optionalKey);
+        return $this->type('literal');
     }
 
-    public function type($type, $optionalKey = null)
+    public function type($type)
     {
         switch ($type) {
             case 'array':
-                $type = new ArrayTypeDefinition($optionalKey);
+                $type = new ArrayTypeDefinition();
                 break;
             case 'object':
-                $type = new ObjectTypeDefinition($optionalKey);
+                $type = new ObjectTypeDefinition();
                 break;
             case 'bool':
             case 'boolean':
-                $type = new BooleanTypeDefinition($optionalKey);
+                $type = new BooleanTypeDefinition();
                 break;
             case 'number':
-                $type = new NumberTypeDefinition($optionalKey);
+                $type = new NumberTypeDefinition();
                 break;
             case 'null':
-                $type = new NullTypeDefinition($optionalKey);
+                $type = new NullTypeDefinition();
                 break;
             case 'string':
-                $type = new StringTypeDefinition($optionalKey);
+                $type = new StringTypeDefinition();
                 break;
             case 'literal':
-                $type = new LiteralTypeDefinition($optionalKey);
+                $type = new LiteralTypeDefinition();
                 break;
         }
 

@@ -13,17 +13,19 @@ abstract class TypeDefinition implements ParentInterface
     protected $parent;
     protected $key;
 
-    public function __construct($optionalKey)
-    {
-        $this->key = $optionalKey;
-    }
-
     /**
      * @return JsonTypeBuilder
      */
     public function end()
     {
         return $this->parent;
+    }
+
+    public function key($keyForObject)
+    {
+        $this->key = $keyForObject;
+
+        return $this;
     }
 
     public function setParent(ParentInterface $parent)
